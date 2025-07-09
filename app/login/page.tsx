@@ -31,7 +31,7 @@ export default function Login() {
             }
 
             setSuccess('Login successful!');
-            // Optionally redirect: window.location.href = '/dashboard';
+
         } catch (err) {
             console.error('Login error:', err);
             setError('Something went wrong. Please try again.');
