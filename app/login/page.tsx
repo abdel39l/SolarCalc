@@ -2,7 +2,42 @@
 
 import { FaApple, FaGoogle, FaXTwitter } from 'react-icons/fa6';
 
+import { useState } from 'react';
+
+
 export default function Login() {
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [error, setError] = useState('');
+    const [success, setSuccess] = useState('');
+
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+        setError('');
+        setSuccess('');
+
+        try {
+            const res = await fetch('/api/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email, password }),
+            });
+
+            const data = await res.json();
+
+            if (!res.ok) {
+                setError(data.message || 'Login failed');
+                return;
+            }
+
+            setSuccess('Login successful!');
+            // Optionally redirect: window.location.href = '/dashboard';
+        } catch (err) {
+            console.error('Login error:', err);
+            setError('Something went wrong. Please try again.');
+        }
+    };
+
     return (
         <div className="min-h-screen dark:bg-black flex items-center justify-center px-6">
             <div className="bg-[#111] p-8 rounded-xl shadow-md w-full max-w-md text-white">
@@ -26,6 +61,8 @@ export default function Login() {
                         <input
                             type="email"
                             placeholder="email address"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
                             className="w-full px-4 py-3 rounded-md bg-[#1a1a1a] text-white placeholder-gray-400 border border-transparent focus:outline-none focus:ring-2 focus:ring-blue-500"
                         />
                     </div>
@@ -33,16 +70,22 @@ export default function Login() {
                         <input
                             type="password"
                             placeholder="Password"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
                             className="w-full px-4 py-3 rounded-md bg-[#1a1a1a] text-white placeholder-gray-400 border border-transparent focus:outline-none focus:ring-2 focus:ring-blue-500"
                         />
                     </div>
                     <button
                         type="submit"
+                        onClick={handleSubmit}
                         className="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-md font-semibold transition"
                     >
                         Login
                     </button>
+
                 </form>
+                {success && <p className="text-green-500 mt-4 text-sm text-center">{success}</p>}
+                {error && <p className="text-red-500 mt-4 text-sm text-center">{error}</p>}
 
                 <div className="my-4 flex items-center justify-between">
                     <span className="h-px flex-1 bg-gray-700" />
