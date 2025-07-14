@@ -5,12 +5,16 @@ import SolarCalculatorExplanation from "../components/SolarCalculatorExplanation
 
 
 
+
 export default function Home() {
   return (
       <div>
         <HeroSection />
           <SellingPointsSection />
           <SolarCalculatorExplanation />
+
+
+
 
 
 

@@ -3,7 +3,7 @@
 
 export default function SolarCalculatorExplanation() {
     return (
-        <section className="w-full bg- text-white py-20 px-6 flex flex-col items-center justify-center text-center">
+        <section className="w-full  text-white py-20 px-6 flex flex-col items-center justify-center text-center">
             <div className="mb-6">
                 <div className="bg-gray-900 p-3 rounded-full inline-block">
                     <div className="w-6 h-6 bg-gradient-to-r from-blue-400 to-purple-500 rounded-full" />
